@@ -30,8 +30,8 @@
 			"CleverMonitor\\Api\\Methods\\Subscribers": "src/Methods/Subscribers.php",
 			"CleverMonitor\\Api\\Methods\\Validation": "src/Methods/Validation.php",
 			"CleverMonitor\\Api\\Methods\\References": "src/Methods/References.php",
-			"CleverMonitor\\Api\\RateLimits": "src/Methods/RateLimits.php",
-			"CleverMonitor\\Api\\Response": "src/Methods/Response.php"
+			"CleverMonitor\\Api\\RateLimits": "src/Connection/RateLimits.php",
+			"CleverMonitor\\Api\\Response": "src/Connection/Response.php"
 		}
     }
 }
