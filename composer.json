@@ -1,0 +1,37 @@
+{
+    "name": "clevermonitor/api-example",
+    "type": "library",
+    "description": "Clever Monitor REST API",
+    "keywords": ["CleverMonitor", "framework", "http", "rest", "web service", "curl", "client", "HTTP client"],
+    "homepage": "http://clevermonitor.com/",
+    "license": "MIT",
+	"minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "CleverMonitor",
+            "email": "support@clevermonitor.com"
+        }
+    ],
+	"support": {
+        "email": "support@clevermonitor.com",
+		"docs" : "https://api.clevermonitor.com"
+    },
+    "require": {
+        "php": ">=5.5.0",
+		"guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "classmap": {
+			"CleverMonitor\\Api\\Connection": "src/Connection/Connection.php",
+			"CleverMonitor\\Api\\Constants\\Api": "src/Constants/Api.php",
+			"CleverMonitor\\Api\\ConnectionExceptions\\": "src/Exceptions/ConnectionExceptions.php",
+			"CleverMonitor\\Api\\Methods\\Base": "src/Methods/Base.php",
+			"CleverMonitor\\Api\\Methods\\Lists": "src/Methods/Lists.php",
+			"CleverMonitor\\Api\\Methods\\Subscribers": "src/Methods/Subscribers.php",
+			"CleverMonitor\\Api\\Methods\\Validation": "src/Methods/Validation.php",
+			"CleverMonitor\\Api\\Methods\\References": "src/Methods/References.php",
+			"CleverMonitor\\Api\\RateLimits": "src/Methods/RateLimits.php",
+			"CleverMonitor\\Api\\Response": "src/Methods/Response.php"
+		}
+    }
+}
