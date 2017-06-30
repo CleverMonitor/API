@@ -9,12 +9,12 @@
  * @author CleverMonitor <support@clevermonitor.com>
  */
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $cmApi = new \CleverMonitor\Api\Methods\References('Your ID', 'Your Token');
 
 /**
- * Get Reference
+ * Get reference
  * @GET
  */
 $reference = $cmApi->getReference('contact_type');

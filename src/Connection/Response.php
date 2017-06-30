@@ -1,5 +1,5 @@
 <?php
-	namespace CleverMonitor\Api;
+	namespace CleverMonitor\Api\Connection;
 
 	/**
 	 * CleverMonitor Developers
@@ -27,10 +27,18 @@
 			$this->responseData = json_decode($data, TRUE);
 		}
 
+		/**
+		 * Returns status code of response
+		 * @return int Status code
+		 */
 		public function getStatusCode() {
 			return $this->httpStatusCode;
 		}
 
+		/**
+		 * Returns data from body of response
+		 * @return array Data from body
+		 */
 		public function getData() {
 			return $this->responseData;
 		}

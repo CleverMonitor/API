@@ -9,9 +9,18 @@
  * @author CleverMonitor <support@clevermonitor.com>
  */
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $cmApi = new \CleverMonitor\Api\Methods\Validation('Your ID', 'Your Token');
+
+/**
+ * RFC Email Validation
+ * @GET
+ */
+$validation = $cmApi->validationRfcSingleEmail('john.doe@example.com');
+
+$httpResponseCode = $validation->getStatusCode();
+$httpResponseData = $validation->getData();
 
 /**
  * Single Email Validation
@@ -23,24 +32,24 @@ $httpResponseCode = $validation->getStatusCode();
 $httpResponseData = $validation->getData();
 
 /**
- * Bluk Email Validation
+ * Bulk Email Validation
  * @POST
  */
-$data = array(
-	'emails' => array(
-		0 => array(
+$data = [
+	'emails' => [
+		0 => [
 			'email' => 'john.doe@example.com',
 			'first_name' => 'John',
 			'last_name' => 'Doe'
-		),
-		1 => array(
+		],
+		1 => [
 			'email' => 'mike.johnson@example.com',
 			'first_name' => 'Mike',
 			'last_name' => 'Johnson'
-		)
-	)
-);
-$validation = $cmApi->validationBlukEmails($data);
+		]
+	]
+];
+$validation = $cmApi->validationBulkEmails($data);
 
 $httpResponseCode = $validation->getStatusCode();
 $httpResponseData = $validation->getData();
@@ -49,20 +58,20 @@ $httpResponseData = $validation->getData();
  * Batch Email Validation - Request
  * @POST
  */
-$data = array(
-	'emails' => array(
-		0 => array(
+$data = [
+	'emails' => [
+		0 => [
 			'email' => 'john.doe@example.com',
 			'first_name' => 'John',
 			'last_name' => 'Doe'
-		),
-		1 => array(
+		],
+		1 => [
 			'email' => 'mike.johnson@example.com',
 			'first_name' => 'Mike',
 			'last_name' => 'Johnson'
-		)
-	)
-);
+		]
+	]
+];
 $validation = $cmApi->validationBatchEmailsRequest($data);
 
 $httpResponseCode = $validation->getStatusCode();

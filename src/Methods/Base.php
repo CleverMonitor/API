@@ -1,6 +1,6 @@
 <?php	namespace CleverMonitor\Api\Methods;
 
-	use \CleverMonitor\Api\Connection;
+	use CleverMonitor\Api\Connection\Connection;
 
 	/**
 	 * CleverMonitor Developers

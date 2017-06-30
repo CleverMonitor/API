@@ -1,5 +1,5 @@
 <?php
-	namespace CleverMonitor\Api;
+	namespace CleverMonitor\Api\Connection;
 
 	/**
 	 * CleverMonitor Developers
@@ -35,7 +35,7 @@
 		}
 
 		/**
-		 * Get Rate Limit
+		 * The maximum number of requests you can make per 15 minutes window.
 		 * @return int
 		 */
 		public function getLimit() {
@@ -43,7 +43,7 @@
 		}
 
 		/**
-		 * Get Rate Remaining
+		 * The number of requests remaining in the current rate limit window.
 		 * @return int
 		 */
 		public function getRemaining() {
@@ -51,7 +51,7 @@
 		}
 
 		/**
-		 * Get Rate Remaining
+		 * The number of seconds before the rate limit is reset.
 		 * @return int
 		 */
 		public function getReset() {

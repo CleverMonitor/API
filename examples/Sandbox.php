@@ -9,12 +9,12 @@
  * @author CleverMonitor <support@clevermonitor.com>
  */
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-$cmApi = new \CleverMonitor\Api\Connection('Your ID', 'Your Token');
+$cmApi = new \CleverMonitor\Api\Connection\Connection('Your ID', 'Your Token');
 
 /**
- * Test GET Method
+ * Test GET method
  * @GET
  */
 $get = $cmApi->get('sandbox');
@@ -23,48 +23,48 @@ $httpResponseCode = $get->getStatusCode();
 $httpResponseData = $get->getData();
 
 /**
- * Test POST Method
+ * Test POST method
  * @POST
  */
-$data = array(
+$data = [
 	'name' => 'John',
 	'number' => 1234
-	);
+];
 $post = $cmApi->post('sandbox', $data);
 
 $httpResponseCode = $post->getStatusCode();
 $httpResponseData = $post->getData();
 
 /**
- * Test PUT Method
+ * Test PUT method
  * @PUT
  */
 $id = 12;
-$data = array(
+$data = [
 	'name' => 'John',
 	'number' => 1234
-	);
+];
 $put = $cmApi->put('sandbox/' . $id, $data);
 
 $httpResponseCode = $put->getStatusCode();
 $httpResponseData = $put->getData();
 
 /**
- * Test PATCH Method
+ * Test PATCH method
  * @PATCH
  */
 $id = 12;
-$data = array(
+$data = [
 	'name' => 'John',
 	'number' => 1234
-	);
+];
 $patch = $cmApi->patch('sandbox/' . $id, $data);
 
 $httpResponseCode = $patch->getStatusCode();
 $httpResponseData = $patch->getData();
 
 /**
- * Test DELETE Method
+ * Test DELETE method
  * @DELETE
  */
 $id = 12;

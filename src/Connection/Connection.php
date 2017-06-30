@@ -1,8 +1,7 @@
 <?php
-	namespace CleverMonitor\Api;
+	namespace CleverMonitor\Api\Connection;
 
 	use \GuzzleHttp\Client;
-	use \CleverMonitor\Api\Constants\Api;
 
 	/**
 	 * CleverMonitor Developers
@@ -41,26 +40,37 @@
 		 * @return Client
 		 */
 		private function client() {
+			$config = $this->getConfiguration();
 			$client = new Client([
-				'base_uri' => Api::API_URL.'/v'.Api::API_VERSION.'/',
-				'timeout' => Api::API_TIMEOUT,
+				'base_uri' => 'https://api.clevermonitor.com/v'.$config->version.'/',
+				'timeout' => $config->connection_timeout,
 				'verify' => false,
 				'headers' => [
-					'Accept' => Api::API_CONTENT_TYPE,
+					'Accept' => $config->content_type,
 					'X-Api-Key' => $this->apiKey,
 				],
+				'http_errors' => false
 			]);
 
 			return $client;
 		}
 
 		/**
+		 * Api configuration
+		 * @return \stdClass
+		 */
+		private function getConfiguration() {
+			$file = file_get_contents(__DIR__.'/config.json');
+			return json_decode($file);
+		}
+
+		/**
 		 * GET
 		 * @param string $uri
 		 * @param array $query
-		 * @return stdClass
+		 * @return Response
 		 */
-		public function get($uri, $query = array()) {
+		public function get($uri, $query = []) {
 			$query = '?' . http_build_query($query);
 			$response = $this->client->request('GET', $uri.$query);
 			return $this->responseHandle($response);
@@ -69,51 +79,51 @@
 		/**
 		 * POST
 		 * @param string $uri
-		 * @param array $formParams
-		 * @return stdClass
+		 * @param array $data
+		 * @return Response
 		 */
-		public function post($uri, $formParams) {
-			$response = $this->client->request('POST', $uri, array('form_params' => $formParams));
+		public function post($uri, $data) {
+			$response = $this->client->request('POST', $uri, ['json' => $data]);
 			return $this->responseHandle($response);
 		}
 
 		/**
 		 * PATCH
 		 * @param string $uri
-		 * @param array $formParams
-		 * @return stdClass
+		 * @param array $data
+		 * @return Response
 		 */
-		public function patch($uri, $formParams) {
-			$response = $this->client->request('PATCH', $uri, array('form_params' => $formParams));
+		public function patch($uri, $data) {
+			$response = $this->client->request('PATCH', $uri, ['json' => $data]);
 			return $this->responseHandle($response);
 		}
 
 		/**
 		 * PUT
 		 * @param string $uri
-		 * @param array $formParams
-		 * @return stdClass
+		 * @param array $data
+		 * @return Response
 		 */
-		public function put($uri, $formParams) {
-			$response = $this->client->request('PUT', $uri, array('form_params' => $formParams));
+		public function put($uri, $data) {
+			$response = $this->client->request('PUT', $uri, ['json' => $data]);
 			return $this->responseHandle($response);
 		}
 
 		/**
 		 * DELETE
 		 * @param string $uri
-		 * @param array $formParams
-		 * @return stdClass
+		 * @param array $data
+		 * @return Response
 		 */
-		public function delete($uri, $formParams = NULL) {
-			$response = $this->client->request('DELETE', $uri, array('form_params' => $formParams));
+		public function delete($uri, $data = NULL) {
+			$response = $this->client->request('DELETE', $uri, ['json' => $data]);
 			return $this->responseHandle($response);
 		}
 
 		/**
 		 * Response handler
 		 * @param Response $response
-		 * @return stdClass
+		 * @return Response
 		 */
 		public function responseHandle($response) {
 			$httpStatusCode = $response->getStatusCode();
@@ -125,28 +135,14 @@
 
 			$data = (string) $response->getBody();
 
-			if ($httpStatusCode === 204) {
-				$data = NULL;
-			} else if ($httpStatusCode === 304) {
-				throw new ConnectionExceptions\NotModifed();
-			} else if ($httpStatusCode === 400) {
-				throw new ConnectionExceptions\BadRequest();
-			} else if ($httpStatusCode === 404) {
-				throw new ConnectionExceptions\NotFound();
-			} else if ($httpStatusCode === 401) {
-				throw new ConnectionExceptions\Unauthorized();
-			} else if ($httpStatusCode === 422) {
-				throw new ConnectionExceptions\UnprocessableEntity();
-			}
-
 			return new Response($httpStatusCode, $data);
 		}
 
 		/**
 		 * Get Rate Limit
-		 * @return \stdClass
+		 * @return RateLimits
 		 */
-		public function getRateLimit() {
+		public function getRateLimits() {
 			return $this->rateLimit;
 		}
 	}
